@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineOrdering", "OnlineOrdering\OnlineOrdering.csproj", "{45E719F5-2B10-4891-9CE3-B817979D07AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineOrderingBusiness", "OnlineOrderingBusiness\OnlineOrderingBusiness.csproj", "{00450D52-2D0C-4981-B0FF-EB7E5953DAE8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45E719F5-2B10-4891-9CE3-B817979D07AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45E719F5-2B10-4891-9CE3-B817979D07AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45E719F5-2B10-4891-9CE3-B817979D07AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45E719F5-2B10-4891-9CE3-B817979D07AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00450D52-2D0C-4981-B0FF-EB7E5953DAE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00450D52-2D0C-4981-B0FF-EB7E5953DAE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00450D52-2D0C-4981-B0FF-EB7E5953DAE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00450D52-2D0C-4981-B0FF-EB7E5953DAE8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
