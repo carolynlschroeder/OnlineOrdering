@@ -8,11 +8,6 @@ namespace OnlineOrdering.Model
 {
     public class CustomerModel
     {
-        public CustomerModel()
-        {
-            BillingAddress = new AddressModel {AddressId = Guid.NewGuid(), AddressTypeId= 0};
-            ShippingAddress = new AddressModel {AddressId = Guid.NewGuid(), AddressTypeId = 1};
-        }
         public Guid CustomerId { get; set; }
         [Required(ErrorMessage = "First Name is required")]
         [Display(Name = "First Name")]
@@ -23,7 +18,9 @@ namespace OnlineOrdering.Model
         [Required(ErrorMessage = "Middle Initial is required")]
         [Display(Name = "Middle Initial")]
         public string MiddleI { get; set; }
+        [UIHint("Address")]
         public AddressModel BillingAddress { get; set; }
+        [UIHint("Address")]
         public AddressModel ShippingAddress { get; set; }
     }
 }

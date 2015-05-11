@@ -23,7 +23,23 @@ namespace OnlineOrderingBusiness.Repositories
         public void CreateCustomer(Customer customer)
         {
             _entities.Customers.Add(customer);
-            _entities.SaveChanges();
+            try
+            {
+                _entities.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity.ToString(),
+                            validationError.ErrorMessage);
+                       System.Diagnostics.Debug.WriteLine(message);
+                    }
+                }
+            }
         }
     }
 }
