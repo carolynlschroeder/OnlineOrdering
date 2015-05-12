@@ -67,7 +67,14 @@ namespace OnlineOrdering.Controllers
             var customer = repository.GetCustomer(customerModel.CustomerId);
             CustomerFromCustomerModel(customerModel, customer);
 
-            //TODO add repository method
+            repository.EditCustomer(customer);
+            return RedirectToAction("Customers");
+        }
+
+        public ActionResult DeleteCustomer(Guid id)
+        {
+            var repository = new CustomerRepository();
+            repository.DeleteCustomer(id);
             return RedirectToAction("Customers");
         }
 

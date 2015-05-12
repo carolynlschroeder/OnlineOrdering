@@ -4,13 +4,14 @@
     ViewBag.Title = "Edit Customer";
 }
 
-<h2>EditCustomer</h2>
+<h2>Edit Customer</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
+    @Html.HiddenFor(model => model.CustomerId)
     <div class="form-horizontal">
         <h4>CustomerModel</h4>
         <hr />
@@ -38,7 +39,8 @@
                 @Html.ValidationMessageFor(model => model.MiddleI, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        @Html.EditorFor(model => model.BillingAddress)
+        @Html.EditorFor(model => model.ShippingAddress)
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,23 +24,22 @@ namespace OnlineOrderingBusiness.Repositories
         public void CreateCustomer(Customer customer)
         {
             _entities.Customers.Add(customer);
-            try
-            {
-                _entities.SaveChanges();
-            }
-            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        string message = string.Format("{0}:{1}",
-                            validationErrors.Entry.Entity.ToString(),
-                            validationError.ErrorMessage);
-                       System.Diagnostics.Debug.WriteLine(message);
-                    }
-                }
-            }
+            _entities.SaveChanges();
+
+        }
+
+        public void EditCustomer(Customer customer)
+        {
+            _entities.Entry<Customer>(customer).State = EntityState.Modified;
+            _entities.SaveChanges();
+
+        }
+
+        public void DeleteCustomer(Guid customerId)
+        {
+            var customer = _entities.Customers.FirstOrDefault(c => c.CustomerId == customerId);
+            _entities.Entry<Customer>(customer).State = EntityState.Deleted;
+            _entities.SaveChanges();
         }
     }
 }
