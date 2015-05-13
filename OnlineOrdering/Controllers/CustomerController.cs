@@ -31,8 +31,10 @@ namespace OnlineOrdering.Controllers
         {
             var model = new CustomerModel();
             model.CustomerId = Guid.NewGuid();
-            model.BillingAddress = new AddressModel { AddressId = Guid.NewGuid(), AddressTypeId = 0, CustomerId = model.CustomerId };
-            model.ShippingAddress = new AddressModel { AddressId = Guid.NewGuid(), AddressTypeId = 1, CustomerId = model.CustomerId };
+            var billingAddress = new AddressModel { AddressId = Guid.NewGuid(), AddressTypeId = 0, CustomerId = model.CustomerId };
+            var shippingAddress = new AddressModel { AddressId = Guid.NewGuid(), AddressTypeId = 1, CustomerId = model.CustomerId };
+            model.AddressList = new List<AddressModel> {billingAddress, shippingAddress};
+
             return View(model);
 
         }
@@ -42,6 +44,13 @@ namespace OnlineOrdering.Controllers
         {
             var customer = new Customer();
             CustomerFromCustomerModel(customerModel, customer);
+            foreach (var addressModel in customerModel.AddressList)
+            {
+                var a = new Address();
+                AddressFromAddressModel(a, addressModel);
+                customer.Addresses.Add(a);
+            }
+           
 
             var repository = new CustomerRepository();
             repository.CreateCustomer(customer);
@@ -61,11 +70,17 @@ namespace OnlineOrdering.Controllers
 
        
 
+        [HttpPost]
         public ActionResult EditCustomer(CustomerModel customerModel)
         {
             var repository = new CustomerRepository();
             var customer = repository.GetCustomer(customerModel.CustomerId);
             CustomerFromCustomerModel(customerModel, customer);
+            foreach (var addressModel in customerModel.AddressList)
+            {
+                var address = customer.Addresses.FirstOrDefault(a => a.AddressId == addressModel.AddressId);
+                AddressFromAddressModel(address,addressModel);
+            }
 
             repository.EditCustomer(customer);
             return RedirectToAction("Customers");
@@ -92,18 +107,17 @@ namespace OnlineOrdering.Controllers
             };
         }
 
-        public Address AddressFromAddressModel(AddressModel model)
+        public void AddressFromAddressModel(Address a, AddressModel model)
         {
-            return new Address
-            {
-                AddressId = model.AddressId,
-                AddressTypeId = model.AddressTypeId,
-                CustomerId = model.CustomerId,
-                StreetAddress = model.StreetAddress,
-                City = model.City,
-                State = model.State,
-                Zip = model.Zip
-            };
+
+            a.AddressId = model.AddressId;
+            a.AddressTypeId = model.AddressTypeId;
+            a.CustomerId = model.CustomerId;
+            a.StreetAddress = model.StreetAddress;
+            a.City = model.City;
+            a.State = model.State;
+            a.Zip = model.Zip;
+
         }
 
         private void CustomerFromCustomerModel(CustomerModel customerModel, Customer customer)
@@ -113,9 +127,6 @@ namespace OnlineOrdering.Controllers
             customer.LastName = customerModel.LastName;
             customer.MiddleI = customerModel.MiddleI;
             
-            var billingAddress = AddressFromAddressModel(customerModel.BillingAddress);
-            var shippingAddress = AddressFromAddressModel(customerModel.ShippingAddress);
-            customer.Addresses = new List<Address> { billingAddress, shippingAddress };
         }
 
         private CustomerModel CustomerModelFromCustomer(Customer customer)
@@ -127,8 +138,15 @@ namespace OnlineOrdering.Controllers
                 LastName = customer.LastName,
                 MiddleI = customer.MiddleI
             };
-            model.BillingAddress = AddressModelFromAddress(customer.Addresses.FirstOrDefault(a => a.AddressTypeId == 0));
-            model.ShippingAddress = AddressModelFromAddress(customer.Addresses.FirstOrDefault(a => a.AddressTypeId == 1));
+
+            model.AddressList = new List<AddressModel>();
+
+            foreach (var address in customer.Addresses.OrderBy(a=>a.AddressTypeId))
+            {
+                var addressModel = AddressModelFromAddress(address);
+                model.AddressList.Add(addressModel);
+            }
+
             return model;
         }
     }

@@ -18,9 +18,6 @@ namespace OnlineOrdering.Model
         [Required(ErrorMessage = "Middle Initial is required")]
         [Display(Name = "Middle Initial")]
         public string MiddleI { get; set; }
-        [UIHint("Address")]
-        public AddressModel BillingAddress { get; set; }
-        [UIHint("Address")]
-        public AddressModel ShippingAddress { get; set; }
+        public List<AddressModel> AddressList { get; set; }
     }
 }

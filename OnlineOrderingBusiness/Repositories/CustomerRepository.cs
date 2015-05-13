@@ -30,6 +30,7 @@ namespace OnlineOrderingBusiness.Repositories
 
         public void EditCustomer(Customer customer)
         {
+            //_entities.Entry<Customer>(customer).State = EntityState.Modified;
             _entities.Entry<Customer>(customer).State = EntityState.Modified;
             _entities.SaveChanges();
 
