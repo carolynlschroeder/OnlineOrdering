@@ -1,4 +1,5 @@
-﻿@model OnlineOrdering.Model.AddressModel
+﻿@using OnlineOrdering.BusinessLogic
+@model OnlineOrdering.Model.AddressModel
 
 
 @Html.AntiForgeryToken()
@@ -32,7 +33,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(x => x.State, new SelectList(States.GetUsStatues().Select(x => new { value = x.Key, text = x.Value }), "value", "text"), "Select", new { @class = "selectpicker" })
             @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -45,3 +46,11 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker();
+        });
+    </script>
+}
