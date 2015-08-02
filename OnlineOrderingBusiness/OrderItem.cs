@@ -18,6 +18,7 @@ namespace OnlineOrderingBusiness
         public System.Guid OrderId { get; set; }
         public System.Guid ProductId { get; set; }
         public int Quantity { get; set; }
+        public decimal OrderItemTotal { get; set; }
     
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }

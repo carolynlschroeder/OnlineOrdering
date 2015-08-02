@@ -170,10 +170,10 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Model\AddressModel.cs" />
-    <Compile Include="Model\CustomerModel.cs" />
-    <Compile Include="Model\OrderItemModel.cs" />
-    <Compile Include="Model\OrderModel.cs" />
+    <Compile Include="Models\AddressModel.cs" />
+    <Compile Include="Models\CustomerModel.cs" />
+    <Compile Include="Models\OrderItemModel.cs" />
+    <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -285,6 +285,9 @@
     <Content Include="Views\Shared\EditorTemplates\Address.cshtml" />
     <Content Include="Views\Order\CreateOrder.cshtml" />
     <Content Include="Views\Order\AddItem.cshtml" />
+    <Content Include="Views\Order\ViewOrder.cshtml" />
+    <Content Include="Views\Shared\ViewOrderItems.cshtml" />
+    <Content Include="Views\Order\ViewOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

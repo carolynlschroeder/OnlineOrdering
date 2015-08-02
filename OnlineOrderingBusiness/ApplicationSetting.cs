@@ -12,20 +12,10 @@ namespace OnlineOrderingBusiness
     using System;
     using System.Collections.Generic;
     
-    public partial class Order
+    public partial class ApplicationSetting
     {
-        public Order()
-        {
-            this.OrderItems = new HashSet<OrderItem>();
-        }
-    
-        public System.Guid OrderId { get; set; }
-        public System.Guid CustomerId { get; set; }
-        public System.DateTime OrderDateTime { get; set; }
-        public decimal OrderTotal { get; set; }
-        public string OrderCode { get; set; }
-    
-        public virtual Customer Customer { get; set; }
-        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public System.Guid ApplicationSettingId { get; set; }
+        public string ApplicationSettingName { get; set; }
+        public string ApplicationSettingValue { get; set; }
     }
 }

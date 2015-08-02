@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace OnlineOrdering.Model
+namespace OnlineOrdering.Models
 {
     public class AddressModel
     {

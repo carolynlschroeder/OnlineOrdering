@@ -16,6 +16,7 @@
         <AssociationConnector Association="OnlineOrderingModel.Order_Customer_FK" ManuallyRouted="false" />
         <AssociationConnector Association="OnlineOrderingModel.OrderItem_Order_FK" ManuallyRouted="false" />
         <AssociationConnector Association="OnlineOrderingModel.OrderItem_Product_FK" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OnlineOrderingModel.ApplicationSetting" Width="1.5" PointX="0.625" PointY="2.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

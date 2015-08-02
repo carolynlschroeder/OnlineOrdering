@@ -1,7 +1,88 @@
-﻿
+﻿@model OnlineOrdering.Models.OrderItemModel
+
+
 @{
-    ViewBag.Title = "AddOrderItem";
+    ViewBag.Title = "Add Item";
 }
 
-<h2>AddOrderItem</h2>
 
+<h2>Add Item</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.OrderId)
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProductId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ProductId, new SelectList(Model.ProductDictionary.Select(x => new { value = x.Key, text = x.Value }), "value", "text"), "Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Quantity, new SelectList(Model.QuantityDictionary.Select(x => new { value = x.Key, text = x.Value }), "value", "text"), "Select", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderItemTotal, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="control-label col-md-4" style="text-align: left">
+                @Html.EditorFor(model => model.OrderItemTotal, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add Order Item" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#ProductId").change(function () {
+                $("#Quantity").val("");
+                var orderItemTotal = formatCurrency(0);
+                $("#OrderItemTotal").val(orderItemTotal);
+            });
+            $("#Quantity").change(function () {
+                getOrderItemTotal();
+            });
+
+        });
+        function getOrderItemTotal() {
+            $.ajax({
+                url: "/Order/GetOrderItemTotal",
+                datatype: "json",
+                data: { productId: $("#ProductId").val(), quantity: $("#Quantity").val() },
+                async: false,
+                success: function (data) {
+                    var orderItemTotal = formatCurrency(data.orderItemTotal);
+                    $("#OrderItemTotal").val(orderItemTotal);
+                }
+            });
+        }
+        function formatCurrency(total) {
+            var neg = false;
+            if (total < 0) {
+                neg = true;
+                total = Math.abs(total);
+            }
+            return (neg ? "-$" : '$') + parseFloat(total, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
+        }
+    </script>
+}

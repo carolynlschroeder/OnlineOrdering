@@ -1,0 +1,54 @@
+﻿@model OnlineOrdering.Models.OrderModel
+
+@{
+    ViewBag.Title = "ViewOrder";
+}
+
+<h2>View Order</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr/>
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderCode, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="control-label col-md-4" style="text-align: left">
+                @Model.OrderCode
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerName, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="control-label col-md-4" style="text-align: left">
+                @Model.CustomerName
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderDateTime, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="control-label col-md-4" style="text-align: left">
+                @Model.OrderDateTime
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderTotal, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="control-label col-md-4" style="text-align: left">
+                @Model.OrderTotal.ToString("c")
+            </div>
+        </div>
+        <p>
+            @Html.ActionLink("Add Item", "AddItem", "Order", new {@id = Model.OrderId}, null)
+        </p>
+
+
+        @Html.Partial("ViewOrderItems", Model.OrderItems)
+    </div>
+}
+
+
+<div>
+    @Html.ActionLink("Back to Order List", "ViewOrders", "Order")
+</div>
+
